@@ -1,0 +1,25 @@
+<div class="app-container">
+  <app-todo-header [todos]="todos"></app-todo-header>
+
+  <main class="main-content">
+    <app-todo-input (todoAdded)="addTodo($event)"></app-todo-input>
+
+    <app-todo-filters
+      [currentFilter]="currentFilter"
+      (filterChanged)="setFilter($event)"
+    ></app-todo-filters>
+
+    <app-todo-list
+      [todos]="todos"
+      [currentFilter]="currentFilter"
+      (todoUpdated)="updateTodo($event)"
+      (todoDeleted)="deleteTodo($event)"
+    ></app-todo-list>
+
+    <app-todo-bulk-actions
+      [todos]="todos"
+      (toggleAllTodos)="toggleAll($event)"
+      (clearCompletedTodos)="clearCompleted()"
+    ></app-todo-bulk-actions>
+  </main>
+</div>
