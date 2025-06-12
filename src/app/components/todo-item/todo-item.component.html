@@ -1,0 +1,45 @@
+<div class="todo-item" [class.completed]="todo.completed">
+  <div class="todo-content">
+    <label class="checkbox-container">
+      <input
+        type="checkbox"
+        [checked]="todo.completed"
+        (change)="toggleCompleted()"
+      />
+      <span class="checkmark"></span>
+    </label>
+
+    <div class="todo-text-container">
+      <span *ngIf="!isEditing" class="todo-text" (dblclick)="startEditing()">
+        {{ todo.text }}
+      </span>
+      <input
+        *ngIf="isEditing"
+        type="text"
+        [(ngModel)]="editText"
+        (keyup.enter)="saveEdit()"
+        (keyup.escape)="cancelEdit()"
+        (blur)="saveEdit()"
+        class="edit-input"
+        #editInput
+      />
+      <small class="todo-date">
+        {{ todoService.formatDate(todo.createdAt) }}
+      </small>
+    </div>
+  </div>
+
+  <div class="todo-actions">
+    <button
+      *ngIf="!isEditing"
+      (click)="startEditing()"
+      class="action-btn edit-btn"
+      title="Edytuj"
+    >
+      ✏️
+    </button>
+    <button (click)="deleteTodo()" class="action-btn delete-btn" title="Usuń">
+      🗑️
+    </button>
+  </div>
+</div>

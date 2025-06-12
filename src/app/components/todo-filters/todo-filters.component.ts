@@ -7,18 +7,7 @@ export type FilterType = 'all' | 'active' | 'completed';
   selector: 'app-todo-filters',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="filters">
-      <button
-        *ngFor="let filter of filters"
-        (click)="setFilter(filter.key)"
-        [class.active]="currentFilter === filter.key"
-        class="filter-btn"
-      >
-        {{ filter.label }}
-      </button>
-    </div>
-  `,
+  templateUrl: './todo-filters.component.html',
   styles: [
     `
       .filters {
@@ -72,15 +61,17 @@ export type FilterType = 'all' | 'active' | 'completed';
   ],
 })
 export class TodoFiltersComponent {
-  @Input() currentFilter: FilterType = 'all';
-  @Output() filterChanged = new EventEmitter<FilterType>();
+  @Input() currentFilter: FilterType = 'all'; // sprawdzamy jaki filtr jest aktualnie ustawiony
+  @Output() filterChanged = new EventEmitter<FilterType>(); // emitujemy zdarzenie zmiany filtra
 
+  // Lista filtrów do wyboru
   filters = [
-    { key: 'all' as const, label: 'Wszystkie' },
-    { key: 'active' as const, label: 'Aktywne' },
-    { key: 'completed' as const, label: 'Ukończone' },
+    { key: 'all' as const, label: 'Wszystkie' }, // wyswietla wszystkie todos
+    { key: 'active' as const, label: 'Aktywne' }, // wyswietla tylko aktywne todos
+    { key: 'completed' as const, label: 'Ukończone' }, // wyswietla tylko ukończone todos
   ];
 
+  // Metoda do ustawiania filtra
   setFilter(filter: FilterType): void {
     this.filterChanged.emit(filter);
   }

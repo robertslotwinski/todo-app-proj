@@ -7,28 +7,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-todo-input',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="add-todo-section">
-      <div class="input-group">
-        <input
-          type="text"
-          [(ngModel)]="newTodoText"
-          (keyup.enter)="addTodo()"
-          placeholder="Dodaj nowe zadanie..."
-          class="todo-input"
-          #todoInput
-        />
-        <button
-          (click)="addTodo()"
-          [disabled]="!newTodoText.trim()"
-          class="add-btn"
-        >
-          <span class="add-icon">+</span>
-          <span class="add-text">Dodaj</span>
-        </button>
-      </div>
-    </div>
-  `,
+  templateUrl: './todo-input.component.html',
   styles: [
     `
       .add-todo-section {
@@ -129,14 +108,15 @@ import { FormsModule } from '@angular/forms';
   ],
 })
 export class TodoInputComponent {
-  @Output() todoAdded = new EventEmitter<string>();
-  newTodoText: string = '';
+  @Output() todoAdded = new EventEmitter<string>(); // wysyla nowy todo
+  newTodoText: string = ''; // default input jest pusty
 
   addTodo(): void {
-    const text = this.newTodoText.trim();
+    const text = this.newTodoText.trim(); // usuwa niepotrzebne spacje z poczatku i konca
     if (text) {
-      this.todoAdded.emit(text);
-      this.newTodoText = '';
+      // jak jest cos w inpucie idziemy dalej
+      this.todoAdded.emit(text); // emitujemy tekst do rodzica
+      this.newTodoText = ''; // resetujemy input
     }
   }
 }

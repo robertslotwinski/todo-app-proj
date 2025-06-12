@@ -6,20 +6,7 @@ import { Todo } from '../../models/todo.model';
   selector: 'app-todo-bulk-actions',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div *ngIf="todos.length > 0" class="bulk-actions">
-      <button (click)="toggleAll()" class="bulk-btn">
-        {{ allCompleted ? 'Odznacz wszystkie' : 'Zaznacz wszystkie' }}
-      </button>
-      <button
-        *ngIf="completedTodos.length > 0"
-        (click)="clearCompleted()"
-        class="bulk-btn danger"
-      >
-        Usuń ukończone ({{ completedTodos.length }})
-      </button>
-    </div>
-  `,
+  templateUrl: './todo-bulk-actions.component.html',
   styles: [
     `
       .bulk-actions {
@@ -68,26 +55,31 @@ import { Todo } from '../../models/todo.model';
   ],
 })
 export class TodoBulkActionsComponent {
-  @Input() todos: Todo[] = [];
-  @Output() toggleAllTodos = new EventEmitter<boolean>();
-  @Output() clearCompletedTodos = new EventEmitter<void>();
+  @Input() todos: Todo[] = []; //Lista wszystkich todos
+  @Output() toggleAllTodos = new EventEmitter<boolean>(); // Zaznaczamy lub odznaczamy wszystkie todos
+  @Output() clearCompletedTodos = new EventEmitter<void>(); // Usuwamy wszystkie ukończone todos
 
+  // filtruje todos czy aktywne
   get activeTodos(): Todo[] {
     return this.todos.filter((todo) => !todo.completed);
   }
 
+  // filtruje todos czy ukończone
   get completedTodos(): Todo[] {
     return this.todos.filter((todo) => todo.completed);
   }
 
+  // sprawdza czy wszystkie todos są ukończone
   get allCompleted(): boolean {
     return this.todos.length > 0 && this.activeTodos.length === 0;
   }
 
+  // Zaznacza wszystkie todos
   toggleAll(): void {
     this.toggleAllTodos.emit(!this.allCompleted);
   }
 
+  // Usuwa wszystkie ukończone todos
   clearCompleted(): void {
     this.clearCompletedTodos.emit();
   }

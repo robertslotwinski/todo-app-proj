@@ -1,0 +1,10 @@
+<div class="filters">
+  <button
+    *ngFor="let filter of filters"
+    (click)="setFilter(filter.key)"
+    [class.active]="currentFilter === filter.key"
+    class="filter-btn"
+  >
+    {{ filter.label }}
+  </button>
+</div>

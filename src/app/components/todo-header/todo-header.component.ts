@@ -6,16 +6,7 @@ import { Todo } from '../../models/todo.model';
   selector: 'app-todo-header',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <header class="app-header">
-      <h1>📝 Todo App</h1>
-      <div class="stats">
-        <span class="stat"> Wszystkich: {{ todos.length }} </span>
-        <span class="stat"> Aktywnych: {{ activeTodos.length }} </span>
-        <span class="stat"> Ukończonych: {{ completedTodos.length }} </span>
-      </div>
-    </header>
-  `,
+  templateUrl: './todo-header.component.html',
   styles: [
     `
       .app-header {
@@ -93,12 +84,14 @@ import { Todo } from '../../models/todo.model';
   ],
 })
 export class TodoHeaderComponent {
-  @Input() todos: Todo[] = [];
+  @Input() todos: Todo[] = []; // Lista wszystkich todos
 
+  // Zlicza aktywne todos
   get activeTodos(): Todo[] {
     return this.todos.filter((todo) => !todo.completed);
   }
 
+  // Zlicza ukończone todos
   get completedTodos(): Todo[] {
     return this.todos.filter((todo) => todo.completed);
   }

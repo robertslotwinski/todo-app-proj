@@ -8,26 +8,7 @@ import { FilterType } from '../todo-filters/todo-filters.component';
   selector: 'app-todo-list',
   standalone: true,
   imports: [CommonModule, TodoItemComponent],
-  template: `
-    <div class="todos-container">
-      <div *ngIf="filteredTodos.length === 0" class="empty-state">
-        <div class="empty-icon">📋</div>
-        <h3>{{ getEmptyMessage() }}</h3>
-        <p *ngIf="currentFilter === 'all'">
-          Dodaj swoje pierwsze zadanie powyżej
-        </p>
-      </div>
-
-      <div class="todos-list">
-        <app-todo-item
-          *ngFor="let todo of filteredTodos; trackBy: trackByTodo"
-          [todo]="todo"
-          (todoUpdated)="onTodoUpdated($event)"
-          (todoDeleted)="onTodoDeleted($event)"
-        ></app-todo-item>
-      </div>
-    </div>
-  `,
+  templateUrl: './todo-list.component.html',
   styles: [
     `
       .todos-container {
@@ -70,11 +51,12 @@ import { FilterType } from '../todo-filters/todo-filters.component';
   ],
 })
 export class TodoListComponent {
-  @Input() todos: Todo[] = [];
-  @Input() currentFilter: FilterType = 'all';
-  @Output() todoUpdated = new EventEmitter<Todo>();
-  @Output() todoDeleted = new EventEmitter<number>();
+  @Input() todos: Todo[] = []; // Lista wszystkich todos
+  @Input() currentFilter: FilterType = 'all'; // Aktualny filtr zadań na wszystkie
+  @Output() todoUpdated = new EventEmitter<Todo>(); // Zdarzenie aktualizacji todo
+  @Output() todoDeleted = new EventEmitter<number>(); // Zdarzenie usunięcia todo
 
+  // logika filtrowania todos
   get filteredTodos(): Todo[] {
     switch (this.currentFilter) {
       case 'active':
@@ -87,25 +69,26 @@ export class TodoListComponent {
   }
 
   trackByTodo(index: number, todo: Todo): number {
-    return todo.id;
+    return todo.id; // Używamy id todo jako unikalnego identyfikatora
   }
 
+  // Sprawdza czy lista todos jest pusta dla aktualnego filtra
   getEmptyMessage(): string {
     switch (this.currentFilter) {
-      case 'active':
+      case 'active': // jak nie ma aktywnych todos
         return 'Brak aktywnych zadań';
-      case 'completed':
+      case 'completed': // jak nie ma ukończonych todos
         return 'Brak ukończonych zadań';
-      default:
+      default: // jak nie ma żadnych todos
         return 'Brak zadań do wyświetlenia';
     }
   }
 
   onTodoUpdated(todo: Todo): void {
-    this.todoUpdated.emit(todo);
+    this.todoUpdated.emit(todo); // emitujemy zaktualizowany todo
   }
 
   onTodoDeleted(id: number): void {
-    this.todoDeleted.emit(id);
+    this.todoDeleted.emit(id); // emitujemy id todo do usunięcia
   }
 }

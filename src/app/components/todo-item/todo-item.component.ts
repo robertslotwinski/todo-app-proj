@@ -8,61 +8,7 @@ import { TodoService } from '../../services/todo.service';
   selector: 'app-todo-item',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="todo-item" [class.completed]="todo.completed">
-      <div class="todo-content">
-        <label class="checkbox-container">
-          <input
-            type="checkbox"
-            [checked]="todo.completed"
-            (change)="toggleCompleted()"
-          />
-          <span class="checkmark"></span>
-        </label>
-
-        <div class="todo-text-container">
-          <span
-            *ngIf="!isEditing"
-            class="todo-text"
-            (dblclick)="startEditing()"
-          >
-            {{ todo.text }}
-          </span>
-          <input
-            *ngIf="isEditing"
-            type="text"
-            [(ngModel)]="editText"
-            (keyup.enter)="saveEdit()"
-            (keyup.escape)="cancelEdit()"
-            (blur)="saveEdit()"
-            class="edit-input"
-            #editInput
-          />
-          <small class="todo-date">
-            {{ todoService.formatDate(todo.createdAt) }}
-          </small>
-        </div>
-      </div>
-
-      <div class="todo-actions">
-        <button
-          *ngIf="!isEditing"
-          (click)="startEditing()"
-          class="action-btn edit-btn"
-          title="Edytuj"
-        >
-          ✏️
-        </button>
-        <button
-          (click)="deleteTodo()"
-          class="action-btn delete-btn"
-          title="Usuń"
-        >
-          🗑️
-        </button>
-      </div>
-    </div>
-  `,
+  templateUrl: './todo-item.component.html',
   styles: [
     `
       .todo-item {
@@ -237,47 +183,50 @@ import { TodoService } from '../../services/todo.service';
   ],
 })
 export class TodoItemComponent {
-  @Input() todo!: Todo;
-  @Output() todoUpdated = new EventEmitter<Todo>();
-  @Output() todoDeleted = new EventEmitter<number>();
+  @Input() todo!: Todo; //
+  @Output() todoUpdated = new EventEmitter<Todo>(); // wysylamy zaktualizowany todo
+  @Output() todoDeleted = new EventEmitter<number>(); // wysylamy todo do usuniecia
 
-  isEditing = false;
-  editText = '';
+  isEditing = false; // czy jestesmy w trybie edycji
+  editText = ''; // tekst do edycji, default input pusty
 
-  constructor(public todoService: TodoService) {}
+  constructor(public todoService: TodoService) {} // wstrzykujemy serwis TodoService
 
   toggleCompleted(): void {
-    this.todo.completed = !this.todo.completed;
-    this.todoUpdated.emit(this.todo);
+    this.todo.completed = !this.todo.completed; // przełączamy stan todo
+    this.todoUpdated.emit(this.todo); // emitujemy zaktualizowany todo
   }
 
+  // Rozpoczynamy edycję todo
   startEditing(): void {
-    this.isEditing = true;
-    this.editText = this.todo.text;
+    this.isEditing = true; // ustawiamy tryb edycji na true
+    this.editText = this.todo.text; // ustawiamy tekst do edycji na aktualny tekst todo
 
     setTimeout(() => {
+      // czeka na render DOM
       const input = document.querySelector('.edit-input') as HTMLInputElement;
       if (input) {
-        input.focus();
-        input.select();
+        input.focus(); // ustawiamy fokus na inpucie
+        input.select(); // zaznaczamy cały tekst w inpucie
       }
     });
   }
 
   saveEdit(): void {
+    // sprawdzamy czy input nie jest pusty
     if (this.editText.trim()) {
-      this.todo.text = this.editText.trim();
-      this.todoUpdated.emit(this.todo);
+      this.todo.text = this.editText.trim(); // usuwamy niepotrzebne spacje z poczatku i konca
+      this.todoUpdated.emit(this.todo); // emitujemy zaktualizowany todo
     }
-    this.cancelEdit();
+    this.cancelEdit(); // konczymy edycje
   }
 
   cancelEdit(): void {
-    this.isEditing = false;
-    this.editText = '';
+    this.isEditing = false; // ustawiamy tryb edycji na false
+    this.editText = ''; // resetujemy tekst do edycji
   }
 
   deleteTodo(): void {
-    this.todoDeleted.emit(this.todo.id);
+    this.todoDeleted.emit(this.todo.id); // emitujemy id todo do usuniecia
   }
 }

@@ -1,0 +1,12 @@
+<div *ngIf="todos.length > 0" class="bulk-actions">
+  <button (click)="toggleAll()" class="bulk-btn">
+    {{ allCompleted ? "Odznacz wszystkie" : "Zaznacz wszystkie" }}
+  </button>
+  <button
+    *ngIf="completedTodos.length > 0"
+    (click)="clearCompleted()"
+    class="bulk-btn danger"
+  >
+    Usuń ukończone ({{ completedTodos.length }})
+  </button>
+</div>

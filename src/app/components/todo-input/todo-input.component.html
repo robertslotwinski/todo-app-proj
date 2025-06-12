@@ -1,0 +1,20 @@
+<div class="add-todo-section">
+  <div class="input-group">
+    <input
+      type="text"
+      [(ngModel)]="newTodoText"
+      (keyup.enter)="addTodo()"
+      placeholder="Dodaj nowe zadanie..."
+      class="todo-input"
+      #todoInput
+    />
+    <button
+      (click)="addTodo()"
+      [disabled]="!newTodoText.trim()"
+      class="add-btn"
+    >
+      <span class="add-icon">+</span>
+      <span class="add-text">Dodaj</span>
+    </button>
+  </div>
+</div>
