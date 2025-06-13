@@ -27,11 +27,12 @@ import { Todo } from '../../models/todo.model';
         font-size: 0.9rem;
         font-weight: 500;
         transition: all 0.3s ease;
+        font-family: 'Gotu', sans-serif;
       }
 
       .bulk-btn:hover {
-        border-color: #667eea;
-        color: #667eea;
+        border-color: var(--light-blue);
+        color: var(--light-blue);
       }
 
       .bulk-btn.danger:hover {

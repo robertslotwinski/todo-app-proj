@@ -8,7 +8,7 @@ export class TodoService {
   // klucz do zachowania todo w localStorage
   private readonly STORAGE_KEY = 'angular-todos';
 
-  // metoda do generowania unikalnych ID dla nowych todo
+  // metoda do wczytywania todos z localStorage JSON (string) -> parsowanie na obiekt js
   loadTodos(): Todo[] {
     const saved = localStorage.getItem(this.STORAGE_KEY); // pobieramy z localStorage
     if (saved) {

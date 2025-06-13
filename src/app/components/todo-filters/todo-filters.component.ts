@@ -30,14 +30,18 @@ export type FilterType = 'all' | 'active' | 'completed';
       }
 
       .filter-btn:hover {
-        border-color: #667eea;
-        color: #667eea;
+        border-color: var(--light-blue);
+        color: var(--light-blue);
       }
 
       .filter-btn.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(
+          135deg,
+          var(--light-blue) 0%,
+          var(--primary-blue) 100%
+        );
         color: white;
-        border-color: transparent;
+        border-color: var(--light-blue);
       }
 
       @media (max-width: 480px) {

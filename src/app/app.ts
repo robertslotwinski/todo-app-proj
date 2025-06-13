@@ -33,10 +33,8 @@ import { TodoBulkActionsComponent } from './components/todo-bulk-actions/todo-bu
         max-width: 800px;
         margin: 0 auto;
         padding: 20px;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-          Oxygen, Ubuntu, Cantarell, sans-serif;
-
-        background: transparent
+        font-family: 'Gotu', 'Hubballi', sans-serif;
+        background: transparent;
         min-height: 100vh;
       }
 

@@ -31,13 +31,17 @@ import { FormsModule } from '@angular/forms';
       }
 
       .todo-input:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: var(--light-blue);
+        box-shadow: 0 0 0 3px rgba(140, 212, 209, 0.1);
       }
 
       .add-btn {
         padding: 15px 25px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(
+          135deg,
+          var(--light-blue) 0%,
+          var(--primary-blue) 100%
+        );
         color: white;
         border: none;
         border-radius: 50px;
@@ -53,7 +57,7 @@ import { FormsModule } from '@angular/forms';
 
       .add-btn:hover:not(:disabled) {
         transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 10px 20px rgba(108, 182, 231, 0.39);
       }
 
       .add-btn:disabled {
@@ -93,7 +97,7 @@ import { FormsModule } from '@angular/forms';
           bottom: 20px;
           right: 20px;
           z-index: 1000;
-          box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+          box-shadow: 0 8px 16px rgba(102, 203, 234, 0.3);
         }
 
         .add-icon {

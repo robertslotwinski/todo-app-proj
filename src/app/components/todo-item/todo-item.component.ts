@@ -62,12 +62,16 @@ import { TodoService } from '../../services/todo.service';
       }
 
       .checkbox-container:hover .checkmark {
-        border-color: #667eea;
+        border-color: var(--light-blue);
       }
 
       .checkbox-container input:checked ~ .checkmark {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-color: #667eea;
+        background: linear-gradient(
+          135deg,
+          var(--light-blue) 0%,
+          var(--primary-blue) 100%
+        );
+        border-color: var(--primary-blue);
       }
 
       .checkmark:after {
@@ -113,7 +117,7 @@ import { TodoService } from '../../services/todo.service';
       .edit-input {
         width: 100%;
         padding: 8px 12px;
-        border: 2px solid #667eea;
+        border: 2px solid var(--light-blue);
         border-radius: 8px;
         font-size: 1.1rem;
         outline: none;
