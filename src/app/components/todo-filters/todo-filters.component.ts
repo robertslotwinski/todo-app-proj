@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// Typy filtrów, które będą używane w aplikacji
 export type FilterType = 'all' | 'active' | 'completed';
 
 @Component({
@@ -68,7 +69,7 @@ export class TodoFiltersComponent {
   @Input() currentFilter: FilterType = 'all'; // sprawdzamy jaki filtr jest aktualnie ustawiony - default all
   @Output() filterChanged = new EventEmitter<FilterType>(); // emitujemy zdarzenie zmiany filtra
 
-  // Lista filtrów do wyboru
+  // Rzeczywista lista filtrow, które sa w aplikacji
   filters = [
     { key: 'all' as const, label: 'Wszystkie' }, // wyswietla wszystkie todos
     { key: 'active' as const, label: 'Aktywne' }, // wyswietla tylko aktywne todos
