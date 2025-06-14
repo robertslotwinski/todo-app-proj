@@ -13,9 +13,9 @@ export class TodoService {
     const saved = localStorage.getItem(this.STORAGE_KEY); // pobieramy z localStorage
     if (saved) {
       try {
-        const parsed = JSON.parse(saved); // parsujemy JSON i zapisujemy
+        const parsed = JSON.parse(saved); // parsujemy JSON (string) na obiekt js i zapisujemy
         return parsed.map((todo: any) => ({
-          ...todo,
+          ...todo, // Przechodzimy przez kazdy element tablicy i rekonstrukcja createdAt ze stringa na obiekt Date
           createdAt: new Date(todo.createdAt),
         }));
       } catch (e) {
@@ -33,8 +33,8 @@ export class TodoService {
   formatDate(date: Date): string {
     const now = new Date(); // pobieramy aktualna date
     const todoDate = new Date(date); // tworzymy nowy obiekt daty z przekazanej daty z todo
-    const diffTime = Math.abs(now.getTime() - todoDate.getTime()); // obliczamy roznice czasu w milisekundach
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // obliczamy roznice dni
+    const diffTime = Math.abs(now.getTime() - todoDate.getTime()); // obliczamy roznice czasu w milisekundach, abs aby uniknac ujemnych wartosci przy datach z przyszlosci
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // obliczamy roznice dni (1000ms * 60s * 60min * 24h), gdzie ceil zaokragla w gore do najblizszej liczby calkowitej dla dni
 
     // sprawdzamy roznice dni i zwracamy odpowiedni format
     if (diffDays === 1) {
@@ -42,7 +42,7 @@ export class TodoService {
     } else if (diffDays === 2) {
       return 'Wczoraj';
     } else if (diffDays <= 7) {
-      return `${diffDays - 1} dni temu`;
+      return `${diffDays - 1} dni temu`; // Odejmujemy 1, przez dzialanie ceil()
     } else {
       return todoDate.toLocaleDateString('pl-PL'); // formatowanie daty w formacie polskim
     }

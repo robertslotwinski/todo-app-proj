@@ -174,7 +174,7 @@ export class AppComponent {
 
   // Metoda do usuwania todo
   deleteTodo(id: number): void {
-    this.todos = this.todos.filter((todo) => todo.id !== id); // filtrujemy listę, aby usunąć todo o podanym ID
+    this.todos = this.todos.filter((todo) => todo.id !== id); // filtrujemy listę, aby zachować tylko te, które nie mają podanego ID
     this.saveTodos(); // zapisujemy zmiany
   }
 

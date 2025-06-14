@@ -65,7 +65,7 @@ export type FilterType = 'all' | 'active' | 'completed';
   ],
 })
 export class TodoFiltersComponent {
-  @Input() currentFilter: FilterType = 'all'; // sprawdzamy jaki filtr jest aktualnie ustawiony
+  @Input() currentFilter: FilterType = 'all'; // sprawdzamy jaki filtr jest aktualnie ustawiony - default all
   @Output() filterChanged = new EventEmitter<FilterType>(); // emitujemy zdarzenie zmiany filtra
 
   // Lista filtrów do wyboru
